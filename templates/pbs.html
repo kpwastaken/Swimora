@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>
+🏅 Personal Bests
+</h1>
+
+
+<p style="opacity:0.7;">
+Track your fastest swims and watch your progress.
+</p>
+
+
+
+
+
+<div class="card p-4 mt-4">
+
+
+<h2>
+➕ Add Personal Best
+</h2>
+
+
+
+<form method="POST" action="/add_pb">
+
+
+<div class="row g-3">
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏊 Event
+</label>
+
+
+<input
+type="text"
+name="event"
+class="form-control"
+placeholder="100m Freestyle"
+required>
+
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+⏱ Time
+</label>
+
+
+<input
+type="text"
+name="time"
+class="form-control"
+placeholder="1:02.50"
+required>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+📅 Date
+</label>
+
+
+<input
+type="date"
+name="date"
+class="form-control"
+required>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏆 Meet
+</label>
+
+
+<input
+type="text"
+name="meet"
+class="form-control"
+placeholder="Bangkok Open">
+
+
+</div>
+
+
+
+
+
+
+<div class="col-12">
+
+
+<label class="form-label">
+📝 Notes
+</label>
+
+
+<textarea
+name="notes"
+class="form-control"
+rows="3"></textarea>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+<button class="btn btn-primary mt-4">
+
+💾 Save PB
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="mt-5">
+
+
+<h2>
+🔥 Your Records
+</h2>
+
+
+
+
+
+{% for pb in pbs %}
+
+
+
+<div class="card p-4 mt-3">
+
+
+
+<div class="d-flex justify-content-between align-items-center">
+
+
+
+<div>
+
+
+<h3>
+🏊 {{ pb.event }}
+</h3>
+
+
+<h2>
+{{ pb.time }}
+</h2>
+
+
+<p>
+📅 {{ pb.date }}
+</p>
+
+
+<p>
+🏆 {{ pb.meet }}
+</p>
+
+
+<p>
+📝 {{ pb.notes }}
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div>
+
+
+<a
+href="/edit_pb/{{ pb.id }}"
+class="btn btn-sm btn-primary">
+
+✏️ Edit
+
+</a>
+
+
+
+<a
+href="/delete_pb/{{ pb.id }}"
+class="btn btn-sm btn-danger">
+
+🗑 Delete
+
+</a>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+{% else %}
+
+
+
+<div class="card p-4 mt-3">
+
+<p>
+No personal bests yet. Your first record is waiting! 🚀
+
+</p>
+
+
+</div>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+
+
+{% endblock %}

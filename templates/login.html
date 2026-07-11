@@ -1,0 +1,135 @@
+{% extends "login_base.html" %}
+
+
+{% block content %}
+
+
+
+<div class="login-page">
+
+
+<div class="login-card">
+
+
+<div class="text-center">
+
+
+<h1>
+🏊 Swimora
+</h1>
+
+
+<p>
+Your swimming journey starts here.
+</p>
+
+
+</div>
+
+
+
+
+<form method="POST">
+
+
+<div class="mb-3">
+
+
+<label>
+Email
+</label>
+
+
+<input
+
+type="email"
+
+name="email"
+
+class="form-control"
+
+placeholder="Email"
+
+required>
+
+
+</div>
+
+
+
+
+
+<div class="mb-4">
+
+
+<label>
+Password
+</label>
+
+
+<input
+
+type="password"
+
+name="password"
+
+class="form-control"
+
+placeholder="Password"
+
+required>
+
+
+</div>
+
+
+
+
+<button
+
+class="btn btn-primary w-100">
+
+Login
+
+</button>
+
+
+
+</form>
+
+
+
+
+
+<div class="text-center mt-4">
+
+
+<p>
+Don't have an account?
+</p>
+
+
+<a
+
+href="/register"
+
+class="btn btn-outline-primary">
+
+Create Account
+
+</a>
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

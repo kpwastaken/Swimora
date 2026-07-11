@@ -1,0 +1,316 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>
+🏊 My Workouts
+</h1>
+
+
+<p style="opacity:0.7;">
+Track every training session and improve over time.
+</p>
+
+
+
+
+
+<div class="card p-4 mt-4">
+
+
+<h2>
+➕ Add Workout
+</h2>
+
+
+
+<form method="POST" action="/add_workout">
+
+
+<div class="row g-3">
+
+
+
+<div class="col-md-6">
+
+<label class="form-label">
+📅 Date
+</label>
+
+
+<input
+type="date"
+name="date"
+class="form-control"
+required>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<label class="form-label">
+📏 Distance (meters)
+</label>
+
+
+<input
+type="number"
+name="distance"
+class="form-control"
+required>
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+<label class="form-label">
+🏊 Workout Type
+</label>
+
+
+<select
+name="workout_type"
+class="form-select">
+
+
+<option>
+Speed
+</option>
+
+
+<option>
+Endurance
+</option>
+
+
+<option>
+Technique
+</option>
+
+
+<option>
+Recovery
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏊 Stroke
+</label>
+
+
+<select
+name="stroke"
+class="form-select">
+
+
+<option>
+Freestyle
+</option>
+
+
+<option>
+Backstroke
+</option>
+
+
+<option>
+Breaststroke
+</option>
+
+
+<option>
+Butterfly
+</option>
+
+
+<option>
+IM
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+<div class="col-12">
+
+
+<label class="form-label">
+📝 Notes
+</label>
+
+
+<textarea
+name="notes"
+class="form-control"
+rows="3"></textarea>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<button class="btn btn-primary mt-4">
+
+💾 Save Workout
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="mt-5">
+
+
+<h2>
+📋 Training History
+</h2>
+
+
+
+
+{% for workout in workouts %}
+
+
+
+<div class="card p-4 mt-3">
+
+
+
+<div class="d-flex justify-content-between">
+
+
+<div>
+
+
+<h3>
+🏊 {{ workout.workout_type }}
+</h3>
+
+
+<p>
+📅 {{ workout.date }}
+</p>
+
+
+<p>
+📏 {{ workout.distance }} meters
+</p>
+
+
+<p>
+🏊 {{ workout.stroke }}
+</p>
+
+
+<p>
+📝 {{ workout.notes }}
+</p>
+
+
+</div>
+
+
+
+
+
+<div>
+
+
+<a
+href="/edit_workout/{{ workout.id }}"
+class="btn btn-sm btn-primary">
+
+✏️ Edit
+
+</a>
+
+
+
+<a
+href="/delete_workout/{{ workout.id }}"
+class="btn btn-sm btn-danger">
+
+🗑 Delete
+
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+{% else %}
+
+
+<div class="card p-4 mt-3">
+
+<p>
+No workouts yet. Start training! 🏊
+
+</p>
+
+</div>
+
+
+{% endfor %}
+
+
+
+
+</div>
+
+
+
+
+{% endblock %}

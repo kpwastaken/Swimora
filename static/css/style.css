@@ -1,0 +1,799 @@
+body {
+
+    min-height: 100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0077b6,
+        #00b4d8,
+        #caf0f8
+    );
+
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    color: #1d1d1f;
+
+    position: relative;
+
+    overflow-x: hidden;
+
+}
+
+
+
+/* Pool light effect */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 600px;
+
+    height: 600px;
+
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(255,255,255,0.35),
+        transparent 65%
+    );
+
+
+    top: -200px;
+
+    right: -150px;
+
+
+    filter: blur(50px);
+
+
+    z-index: -1;
+
+}
+
+
+
+
+
+/* Water glow */
+
+body::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 700px;
+
+    height: 700px;
+
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(0,180,216,0.45),
+        transparent 70%
+    );
+
+
+    bottom: -250px;
+
+    left: -200px;
+
+
+    filter: blur(60px);
+
+
+    z-index: -1;
+
+}
+
+
+
+
+
+/* Main container */
+
+.container {
+
+    max-width: 1100px;
+
+}
+
+
+
+
+
+/* Apple liquid glass cards */
+
+.card {
+
+
+    background:
+
+    rgba(255,255,255,0.45);
+
+
+
+    backdrop-filter:
+
+    blur(25px);
+
+
+
+    -webkit-backdrop-filter:
+
+    blur(25px);
+
+
+
+    border-radius:
+
+    30px;
+
+
+
+    border:
+
+    1px solid
+
+    rgba(255,255,255,0.55);
+
+
+
+    box-shadow:
+
+    0 20px 40px
+
+    rgba(0,0,0,0.15);
+
+
+
+    transition:
+
+    0.3s;
+
+}
+
+
+
+.card:hover {
+
+    transform:
+
+    translateY(-8px);
+
+}
+
+
+
+
+
+/* Navbar */
+
+.navbar {
+
+
+    background:
+
+    rgba(255,255,255,0.45)
+
+    !important;
+
+
+
+    backdrop-filter:
+
+    blur(20px);
+
+
+
+    -webkit-backdrop-filter:
+
+    blur(20px);
+
+
+
+    border-bottom:
+
+    1px solid
+
+    rgba(255,255,255,0.5);
+
+
+}
+
+
+
+.navbar-brand {
+
+
+    font-size:
+
+    24px;
+
+
+    font-weight:
+
+    800;
+
+
+    color:
+
+    #007aff !important;
+
+}
+
+
+
+
+
+/* Buttons */
+
+.btn {
+
+
+    border-radius:
+
+    999px;
+
+
+    padding:
+
+    10px 20px;
+
+
+    border:
+
+    none;
+
+
+    transition:
+
+    0.25s;
+
+}
+
+
+
+.btn:hover {
+
+    transform:
+
+    scale(1.05);
+
+}
+
+
+
+
+
+/* Forms */
+
+.form-control,
+.form-select {
+
+
+    border-radius:
+
+    15px;
+
+
+    padding:
+
+    12px;
+
+
+    background:
+
+    rgba(255,255,255,0.7);
+
+
+}
+
+
+
+
+
+/* Headings */
+
+h1 {
+
+
+    font-size:
+
+    38px;
+
+
+    font-weight:
+
+    800;
+
+
+    letter-spacing:
+
+    -1px;
+
+
+}
+
+
+
+
+
+h2 {
+
+    font-weight:
+
+    700;
+
+}
+
+
+
+
+
+/* Charts */
+
+canvas {
+
+    max-height:
+
+    350px;
+
+}
+
+
+
+
+
+/* Dark Mode */
+
+body.dark {
+
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #001219,
+
+        #003049,
+
+        #001d3d
+
+    );
+
+
+    color:
+
+    white;
+
+}
+
+
+
+
+
+body.dark .card {
+
+
+    background:
+
+    rgba(30,30,30,0.55);
+
+
+    border-color:
+
+    rgba(255,255,255,0.15);
+
+
+    color:
+
+    white;
+
+}
+
+
+
+
+
+body.dark .navbar {
+
+
+    background:
+
+    rgba(0,0,0,0.45)
+
+    !important;
+
+
+}
+
+
+
+
+
+body.dark .form-control,
+body.dark .form-select {
+
+
+    background:
+
+    rgba(30,30,30,0.7);
+
+
+    color:
+
+    white;
+
+
+    border-color:
+
+    #444;
+
+}
+/* Dark mode pool background */
+
+body.dark::before {
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(0,119,182,0.35),
+        transparent 65%
+    );
+
+}
+
+
+
+body.dark::after {
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(0,180,216,0.25),
+        transparent 70%
+    );
+
+}
+/* 🌙 Dark Pool Theme */
+
+body.dark {
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #00111f,
+        #002b4d,
+        #000814
+    );
+
+    color: white;
+
+}
+
+
+
+/* Dark water glow */
+
+body.dark::before {
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(0,150,255,0.25),
+        transparent 65%
+    );
+
+}
+
+
+
+body.dark::after {
+
+    background:
+
+    radial-gradient(
+        circle,
+        rgba(0,80,150,0.35),
+        transparent 70%
+    );
+
+}
+
+
+
+/* Dark glass cards */
+
+body.dark .card {
+
+    background:
+
+    rgba(255,255,255,0.08);
+
+
+    backdrop-filter:
+
+    blur(25px);
+
+
+    border:
+
+    1px solid rgba(255,255,255,0.15);
+
+
+    color:white;
+
+}
+
+
+
+/* Dark buttons/text fixes */
+
+body.dark p {
+
+    color:
+
+    rgba(255,255,255,0.8);
+
+}
+
+
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark h4 {
+
+    color:white;
+
+}
+
+
+
+/* Dark inputs */
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+
+    background:
+
+    rgba(255,255,255,0.1);
+
+
+    color:white;
+
+
+    border-color:
+
+    rgba(255,255,255,0.2);
+
+}
+
+/* Login Screen */
+
+
+.login-page {
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+
+
+.login-card {
+
+
+    width:420px;
+
+
+    padding:45px;
+
+
+    border-radius:35px;
+
+
+
+    background:
+
+    rgba(255,255,255,0.45);
+
+
+
+    backdrop-filter:
+
+    blur(30px);
+
+
+
+    border:
+
+    1px solid
+
+    rgba(255,255,255,0.5);
+
+
+
+    box-shadow:
+
+    0 25px 50px
+
+    rgba(0,0,0,0.15);
+
+
+}
+
+
+
+
+
+.login-card h1 {
+
+
+    font-size:48px;
+
+
+    font-weight:800;
+
+
+    color:#007aff;
+
+
+}
+
+
+
+.login-card p {
+
+    opacity:0.7;
+
+}
+
+
+
+.login-card input {
+
+
+    border-radius:18px;
+
+
+    padding:14px;
+
+
+}
+
+
+
+
+/* Dark mode login */
+
+
+body.dark .login-card {
+
+
+    background:
+
+    rgba(255,255,255,0.08);
+
+
+    color:white;
+
+
+}
+
+
+
+body.dark .login-card input {
+
+
+    background:
+
+    rgba(255,255,255,0.1);
+
+
+    color:white;
+
+
+}
+/* Swimmer Profile */
+
+.profile-avatar {
+
+    width:120px;
+
+    height:120px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:60px;
+
+    border-radius:50%;
+
+
+    background:
+
+    rgba(0,122,255,0.15);
+
+
+    backdrop-filter:
+
+    blur(15px);
+
+
+    border:
+
+    2px solid
+
+    rgba(255,255,255,0.5);
+
+}
+body.dark {
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #00111f,
+        #002b4d,
+        #000814
+    );
+
+    color:white;
+
+}
+
+
+
+body.dark .card {
+
+    background:
+
+    rgba(255,255,255,0.08);
+
+    color:white;
+
+}
+
+
+
+body.dark .navbar {
+
+    background:
+
+    rgba(0,0,0,0.5) !important;
+
+}

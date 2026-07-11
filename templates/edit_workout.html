@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>✏️ Edit Workout</h1>
+
+
+<form method="POST">
+
+
+<label>Date</label>
+<input class="form-control" type="date" name="date" value="{{ workout.date }}" required>
+
+
+<br>
+
+
+<label>Distance</label>
+<input class="form-control" type="number" name="distance" value="{{ workout.distance }}" required>
+
+
+<br>
+
+
+<label>Workout Type</label>
+
+<select class="form-select" name="workout_type">
+
+<option>{{ workout.workout_type }}</option>
+<option>Speed</option>
+<option>Endurance</option>
+<option>Technique</option>
+<option>Recovery</option>
+
+</select>
+
+
+<br>
+
+
+<label>Stroke</label>
+
+<select class="form-select" name="stroke">
+
+<option>{{ workout.stroke }}</option>
+<option>Freestyle</option>
+<option>Backstroke</option>
+<option>Breaststroke</option>
+<option>Butterfly</option>
+<option>IM</option>
+
+</select>
+
+
+<br>
+
+
+<label>Notes</label>
+
+<textarea class="form-control" name="notes">{{ workout.notes }}</textarea>
+
+
+<br>
+
+
+<button class="btn btn-success">
+Save Changes
+</button>
+
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mb-5">
+
+<h1>
+🏊 Welcome back, {{ user.username }}
+</h1>
+
+<p style="opacity:0.7;">
+Keep pushing your limits today.
+</p>
+
+</div>
+
+
+<div class="row g-4">
+
+<div class="col-md-4">
+<div class="card text-center p-4">
+
+<h4>🌊 Total Distance</h4>
+
+<h1>
+{{ total_distance }}
+</h1>
+
+<p>
+meters
+</p>
+
+</div>
+</div>
+
+
+<div class="col-md-4">
+<div class="card text-center p-4">
+
+<h4>🔥 Training Sessions</h4>
+
+<h1>
+{{ workout_count }}
+</h1>
+
+<p>
+workouts completed
+</p>
+
+</div>
+</div>
+
+
+<div class="col-md-4">
+<div class="card text-center p-4">
+
+<h4>🏅 Personal Bests</h4>
+
+<h1>
+{{ pb_count }}
+</h1>
+
+<p>
+records achieved
+</p>
+
+</div>
+</div>
+
+</div>
+
+
+
+<div class="card p-4 mt-5">
+
+<h2>
+📈 Swimming Progress
+</h2>
+
+<p style="opacity:0.7;">
+Your training distance over time
+</p>
+
+<canvas id="distanceChart" height="300"></canvas>
+
+</div>
+
+
+
+<div class="card p-4 mt-5">
+
+<h2>
+⚡ Quick Actions
+</h2>
+
+<div class="d-flex flex-wrap gap-3">
+
+<a href="/workouts" class="btn btn-primary">
+🏊 Workouts
+</a>
+
+<a href="/pbs" class="btn btn-success">
+🏅 Personal Bests
+</a>
+
+<a href="/profile" class="btn btn-info">
+👤 Profile
+</a>
+
+</div>
+
+</div>
+
+
+
+<div class="card p-4 mt-5">
+
+<h2>
+👤 Swimmer Profile
+</h2>
+
+{% if user.name %}
+
+<div class="row">
+
+<div class="col-md-6">
+
+<p>
+<b>Name:</b>
+{{ user.name }}
+</p>
+
+<p>
+<b>Age:</b>
+{{ user.age }}
+</p>
+
+<p>
+<b>Club:</b>
+{{ user.team }}
+</p>
+
+</div>
+
+
+<div class="col-md-6">
+
+<p>
+<b>Main Stroke:</b>
+{{ user.stroke }}
+</p>
+
+<p>
+<b>Main Event:</b>
+{{ user.event }}
+</p>
+
+</div>
+
+</div>
+
+{% else %}
+
+<p>
+Complete your swimmer profile.
+</p>
+
+<a href="/profile" class="btn btn-primary">
+Create Profile
+</a>
+
+{% endif %}
+
+</div>
+
+
+
+<script>
+
+const workoutDates = [
+
+{% for workout in workouts %}
+"{{ workout.date }}",
+{% endfor %}
+
+];
+
+
+const workoutDistances = [
+
+{% for workout in workouts %}
+{{ workout.distance }},
+{% endfor %}
+
+];
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+{% endblock %}

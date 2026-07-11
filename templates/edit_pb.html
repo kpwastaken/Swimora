@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>✏️ Edit Personal Best</h1>
+
+
+<form method="POST">
+
+
+<label>Event</label>
+
+<input class="form-control" name="event" value="{{ pb.event }}">
+
+
+<br>
+
+
+<label>Time</label>
+
+<input class="form-control" name="time" value="{{ pb.time }}">
+
+
+<br>
+
+
+<label>Date</label>
+
+<input class="form-control" type="date" name="date" value="{{ pb.date }}">
+
+
+<br>
+
+
+<label>Meet</label>
+
+<input class="form-control" name="meet" value="{{ pb.meet }}">
+
+
+<br>
+
+
+<label>Notes</label>
+
+<textarea class="form-control" name="notes">{{ pb.notes }}</textarea>
+
+
+<br>
+
+
+<button class="btn btn-success">
+Save Changes
+</button>
+
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>🏊 Add Workout</h2>
+
+<form method="POST">
+
+Date:
+<input name="date" placeholder="2026-07-11">
+
+<br><br>
+
+Distance (meters):
+<input name="distance" type="number">
+
+<br><br>
+
+Workout Type:
+<input name="workout_type" placeholder="Endurance">
+
+<br><br>
+
+Stroke:
+<input name="stroke" placeholder="Freestyle">
+
+<br><br>
+
+Notes:
+<br>
+<textarea name="notes"></textarea>
+
+<br><br>
+
+<button>
+Save Workout
+</button>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,297 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="mb-5">
+
+<h1>
+👤 Swimmer Profile
+</h1>
+
+<p style="opacity:0.7;">
+Your swimming identity and goals.
+</p>
+
+</div>
+
+
+
+
+
+<div class="card p-5">
+
+
+<div class="text-center mb-4">
+
+
+<div class="profile-avatar">
+
+🏊
+
+</div>
+
+
+<h2>
+{{ user.username }}
+</h2>
+
+
+<p style="opacity:0.7;">
+Swimmer Profile
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<form method="POST">
+
+
+
+<div class="row g-4">
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+👤 Name
+</label>
+
+
+<input
+
+type="text"
+
+name="name"
+
+class="form-control"
+
+value="{{ user.name or '' }}">
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🎂 Age
+</label>
+
+
+<input
+
+type="number"
+
+name="age"
+
+class="form-control"
+
+value="{{ user.age or '' }}">
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏊 Team / Club
+</label>
+
+
+<input
+
+type="text"
+
+name="team"
+
+class="form-control"
+
+value="{{ user.team or '' }}">
+
+</div>
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏊 Main Stroke
+</label>
+
+
+<select
+
+name="stroke"
+
+class="form-select">
+
+
+
+<option>
+Freestyle
+</option>
+
+
+<option>
+Backstroke
+</option>
+
+
+<option>
+Breaststroke
+</option>
+
+
+<option>
+Butterfly
+</option>
+
+
+<option>
+IM
+</option>
+
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+<div class="col-md-6">
+
+
+<label class="form-label">
+🏆 Favorite Event
+</label>
+
+
+<input
+
+type="text"
+
+name="event"
+
+class="form-control"
+
+value="{{ user.event or '' }}">
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<button
+
+class="btn btn-primary mt-5">
+
+💾 Save Profile
+
+</button>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="card p-4 mt-4">
+
+
+<h2>
+🏊 Swimmer Stats
+</h2>
+
+
+<div class="row text-center mt-3">
+
+
+<div class="col-md-4">
+
+<h3>
+{{ user.workouts|length if user.workouts else 0 }}
+</h3>
+
+<p>
+Workouts
+</p>
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+<h3>
+🏅
+</h3>
+
+<p>
+Personal Bests
+</p>
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+<h3>
+🌊
+</h3>
+
+<p>
+Distance Swum
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+{% endblock %}
