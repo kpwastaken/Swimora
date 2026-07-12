@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <div class="mb-5">
 
 <h1>
@@ -25,12 +24,12 @@ Your swimming identity and goals.
 <div class="text-center mb-4">
 
 
-<div class="profile-avatar">
+<div class="profile-avatar"
+     style="background-color: {{ user.avatar_color or '#ffc107' }};">
 
-🏊
+    {{ user.avatar_emoji or "🏊" }}
 
 </div>
-
 
 <h2>
 {{ user.username }}
@@ -184,11 +183,9 @@ IM
 
 <div class="col-md-6">
 
-
 <label class="form-label">
 🏆 Favorite Event
 </label>
-
 
 <input
 
@@ -204,11 +201,73 @@ value="{{ user.event or '' }}">
 
 
 
+    
+
+
+<div class="col-md-6">
+
+    <label class="form-label">
+        🎯 Goal Name
+    </label>
+
+    <input
+        type="text"
+        name="goal_name"
+        class="form-control"
+        value="{{ user.goal_name or '' }}">
+
 </div>
 
+<div class="col-md-6">
+
+    <label class="form-label">
+        🌊 Weekly Goal (meters)
+    </label>
+
+    <input
+        type="number"
+        name="weekly_goal"
+        class="form-control"
+        value="{{ user.weekly_goal }}">
+    </div>
 
 
+<div class="col-md-6">
 
+    <label class="form-label">
+        😀 Avatar Emoji
+    </label>
+
+    <select name="avatar_emoji" class="form-select">
+
+        <option value="🏊">🏊 Swimmer</option>
+        <option value="🐬">🐬 Dolphin</option>
+        <option value="🦈">🦈 Shark</option>
+        <option value="🐳">🐳 Whale</option>
+        <option value="🐠">🐠 Fish</option>
+        <option value="🔥">🔥 Fire</option>
+        <option value="⚡">⚡ Lightning</option>
+        <option value="🏅">🏅 Medal</option>
+
+    </select>
+
+</div>
+
+<div class="col-md-6">
+
+    <label class="form-label">
+        🎨 Avatar Color
+    </label>
+
+    <input
+        type="color"
+        name="avatar_color"
+        class="form-control form-control-color"
+        value="{{ user.avatar_color or '#0d6efd' }}">
+
+</div>
+
+</div>
 
 <button
 
@@ -270,8 +329,6 @@ Personal Bests
 </div>
 
 
-
-
 <div class="col-md-4">
 
 <h3>
@@ -285,13 +342,9 @@ Distance Swum
 </div>
 
 
-
 </div>
 
-
 </div>
-
-
 
 
 {% endblock %}

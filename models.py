@@ -8,6 +8,10 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     weekly_goal = db.Column(db.Integer, default=20000)
+    goal_name = db.Column(
+        db.String(100),
+        default="Weekly Distance Goal"
+    )
     username = db.Column(
         db.String(50),
         unique=True,
@@ -30,6 +34,22 @@ class User(db.Model, UserMixin):
     team = db.Column(db.String(100))
     stroke = db.Column(db.String(50))
     event = db.Column(db.String(50))
+
+    avatar_emoji = db.Column(
+
+        db.String(10),
+
+        default="🏊"
+
+    )
+
+    avatar_color = db.Column(
+
+        db.String(20),
+
+        default="#0d6efd"
+
+    )
 
 
     workouts = db.relationship(
@@ -81,6 +101,7 @@ class PersonalBest(db.Model):
     meet = db.Column(db.String(100))
 
     notes = db.Column(db.Text)
+
 
 
     user_id = db.Column(

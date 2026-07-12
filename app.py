@@ -1,3 +1,4 @@
+from flask_migrate import Migrate
 from flask import Flask, render_template, request, redirect
 from flask_login import (
     LoginManager,
@@ -16,6 +17,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 db.init_app(app)
+migrate = Migrate(app, db)
 
 
 login_manager = LoginManager()
@@ -100,13 +102,18 @@ def dashboard():
         user_id=current_user.id
     ).all()
 
-
     total_distance = sum(
         workout.distance
         for workout in workouts
         if workout.distance
     )
 
+    goal = current_user.weekly_goal or 1
+
+    goal_percentage = min(
+        int((total_distance / goal) * 100),
+        100
+    )
 
     return render_template(
         "dashboard.html",
@@ -114,7 +121,8 @@ def dashboard():
         workouts=workouts,
         total_distance=total_distance,
         workout_count=len(workouts),
-        pb_count=len(pbs)
+        pb_count=len(pbs),
+        goal_percentage=goal_percentage
     )
 
 
@@ -124,12 +132,16 @@ def dashboard():
 def profile():
 
     if request.method == "POST":
-
         current_user.name = request.form["name"]
         current_user.age = request.form["age"]
         current_user.team = request.form["team"]
         current_user.stroke = request.form["stroke"]
         current_user.event = request.form["event"]
+        current_user.goal_name = request.form["goal_name"]
+        current_user.weekly_goal = int(request.form["weekly_goal"])
+
+        current_user.avatar_emoji = request.form["avatar_emoji"]
+        current_user.avatar_color = request.form["avatar_color"]
 
         db.session.commit()
 
