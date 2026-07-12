@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card p-4">
+
+<h1>
+🏊 Your AI Workout
+</h1>
+
+
+<p>
+<b>Stroke:</b> {{ stroke }}
+</p>
+
+<p>
+<b>Goal:</b> {{ goal }}
+</p>
+
+<p>
+<b>Distance:</b> {{ distance }} meters
+</p>
+
+<p>
+<b>Time:</b> {{ time }} minutes
+</p>
+
+<p>
+<b>Level:</b> {{ level }}
+</p>
+
+
+<hr>
+
+
+<h2>
+Workout Plan
+</h2>
+
+
+<ul>
+
+{% for item in workout_sets %}
+
+<li>
+{{ item }}
+</li>
+
+{% endfor %}
+
+</ul>
+
+
+
+<hr>
+
+
+<h3>
+🤖 Coach Tip
+</h3>
+
+
+{% if goal == "Speed" %}
+
+<p>
+Focus on explosive starts, fast turns, and keeping your technique strong at high speed.
+</p>
+
+
+{% elif goal == "Endurance" %}
+
+<p>
+Focus on consistent pacing and maintaining your stroke efficiency throughout the workout.
+</p>
+
+
+{% elif goal == "Technique" %}
+
+<p>
+Focus on perfect form. Quality is more important than speed during drills.
+</p>
+
+
+{% else %}
+
+<p>
+Race preparation requires a balance of speed, endurance, and confidence. Stay focused.
+</p>
+
+
+{% endif %}
+
+
+<form method="POST" action="/save_generated_workout">
+
+<input type="hidden" name="distance" value="{{ distance }}">
+
+<input type="hidden" name="stroke" value="{{ stroke }}">
+
+<input type="hidden" name="goal" value="{{ goal }}">
+
+
+<button class="btn btn-success mt-3">
+
+💾 Save Workout
+
+</button>
+
+
+</form>
+
+
+<a href="/generate_workout" class="btn btn-primary mt-3">
+
+Create Another Workout
+
+</a>
+
+
+</div>
+
+
+{% endblock %}

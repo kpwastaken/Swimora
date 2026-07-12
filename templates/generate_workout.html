@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card p-4">{% if error %}
+
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+
+{% endif %}
+
+<h1>
+🤖 AI Workout Generator
+</h1>
+
+<p style="opacity:0.7;">
+Create a swim workout based on your goals.
+</p>
+
+
+<form method="POST" action="/generate_workout">
+
+
+<label>
+Stroke
+</label>
+
+<select name="stroke" class="form-control mb-3">
+
+<option>Freestyle</option>
+<option>Backstroke</option>
+<option>Breaststroke</option>
+<option>Butterfly</option>
+<option>IM</option>
+
+</select>
+
+
+
+<label>
+Goal
+</label>
+
+<select name="goal" class="form-control mb-3">
+
+<option>Speed</option>
+<option>Endurance</option>
+<option>Technique</option>
+<option>Competition</option>
+
+</select>
+
+
+
+<label>
+Distance (meters)
+</label>
+
+<input 
+type="number"
+name="distance"
+class="form-control mb-3"
+placeholder="Example: 3000"
+>
+
+
+
+<label>
+Available Time (minutes)
+</label>
+
+<input 
+type="number"
+name="time"
+class="form-control mb-3"
+placeholder="Example: 60"
+>
+
+
+
+<label>
+Level
+</label>
+
+<select name="level" class="form-control mb-3">
+
+<option>Beginner</option>
+<option>Intermediate</option>
+<option>Advanced</option>
+
+</select>
+
+
+
+<button 
+class="btn btn-primary"
+type="submit">
+
+🏊 Generate Workout
+
+</button>
+
+
+</form>
+
+</div>
+
+
+{% endblock %}

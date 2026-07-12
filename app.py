@@ -142,7 +142,103 @@ def profile():
     )
 
 
+@app.route("/generate_workout", methods=["GET", "POST"])
+@login_required
+def generate_workout():
+    if request.method == "POST":
 
+        stroke = request.form.get("stroke")
+        goal = request.form.get("goal")
+        distance = request.form.get("distance")
+        time = request.form.get("time")
+        level = request.form.get("level")
+
+        if not stroke or not goal or not distance or not time or not level:
+            return render_template(
+                "generate_workout.html",
+                error="Please fill in all fields before generating your workout."
+            )
+
+        distance = int(distance)
+        time = int(time)
+
+
+        if goal == "Speed":
+
+            workout_sets = [
+                f"400m warm up ({stroke})",
+                "8 x 50m sprint",
+                f"{max(4, distance // 100)} x 100m race pace",
+                "200m cool down"
+            ]
+
+
+        elif goal == "Endurance":
+
+            workout_sets = [
+                f"600m warm up ({stroke})",
+                f"{max(3, distance // 500)} x 500m steady pace",
+                "8 x 50m technique drills",
+                "300m cool down"
+            ]
+
+
+        elif goal == "Technique":
+
+            workout_sets = [
+                "400m easy swim",
+                "8 x 50m technique drills",
+                f"{max(4, distance // 100)} x 100m perfect technique",
+                "200m cool down"
+            ]
+
+
+        else:
+
+            workout_sets = [
+                "500m warm up",
+                f"{max(4, distance // 200)} x 200m race pace",
+                "12 x 25m sprint",
+                "300m cool down"
+            ]
+
+
+        return render_template(
+            "generated_workout.html",
+            stroke=stroke,
+            goal=goal,
+            distance=distance,
+            time=time,
+            level=level,
+            workout_sets=workout_sets
+        )
+
+
+    return render_template(
+        "generate_workout.html"
+    )
+
+
+
+@app.route("/save_generated_workout", methods=["POST"])
+@login_required
+def save_generated_workout():
+
+    workout = Workout(
+        date="AI Generated",
+        distance=int(request.form["distance"]),
+        workout_type=request.form["goal"],
+        stroke=request.form["stroke"],
+        notes="AI Generated Workout",
+        user_id=current_user.id
+    )
+
+
+    db.session.add(workout)
+    db.session.commit()
+
+
+    return redirect("/workouts")
 @app.route("/settings")
 @login_required
 def settings():
