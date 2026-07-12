@@ -89,9 +89,10 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
-
     workouts = Workout.query.filter_by(
         user_id=current_user.id
+    ).order_by(
+        Workout.id.desc()
     ).all()
 
 

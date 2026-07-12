@@ -2,176 +2,302 @@
 
 {% block content %}
 
-<div class="mb-5">
+<!-- Hero Banner -->
 
-<h1>
-🏊 Welcome back, {{ user.username }}
-</h1>
+<div class="hero-card">
 
-<p style="opacity:0.7;">
-Keep pushing your limits today.
-</p>
+    <div class="hero-overlay">
+
+        <div>
+
+            <span class="hero-tag">
+                SWIMORA
+            </span>
+
+            <h1>
+                Welcome back,
+                {{ user.username }}
+            </h1>
+
+            <p>
+                Every lap gets you closer to your next personal best.
+            </p>
+
+        </div>
+
+    </div>
 
 </div>
 
+
+
+
+
+<!-- Statistics -->
 
 <div class="row g-4">
 
-<div class="col-md-4">
-<div class="card text-center p-4">
+    <div class="col-lg-4">
 
-<h4>🌊 Total Distance</h4>
+        <div class="card p-4 h-100">
 
-<h1>
-{{ total_distance }}
-</h1>
+            <div class="d-flex justify-content-between align-items-center">
 
-<p>
-meters
-</p>
+                <div>
+
+                    <h5 class="text-secondary">
+                        Total Distance
+                    </h5>
+
+                    <h1>
+                        {{ total_distance }}
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        meters swum
+                    </p>
+
+                </div>
+
+                <i class="bi bi-water display-4 text-primary"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-4">
+
+        <div class="card p-4 h-100">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h5 class="text-secondary">
+                        Training Sessions
+                    </h5>
+
+                    <h1>
+                        {{ workout_count }}
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        workouts completed
+                    </p>
+
+                </div>
+
+                <i class="bi bi-activity display-4 text-success"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-4">
+
+        <div class="card p-4 h-100">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h5 class="text-secondary">
+                        Personal Bests
+                    </h5>
+
+                    <h1>
+                        {{ pb_count }}
+                    </h1>
+
+                    <p class="text-muted mb-0">
+                        official records
+                    </p>
+
+                </div>
+
+                <i class="bi bi-trophy-fill display-4 text-warning"></i>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
-</div>
 
 
-<div class="col-md-4">
-<div class="card text-center p-4">
-
-<h4>🔥 Training Sessions</h4>
-
-<h1>
-{{ workout_count }}
-</h1>
-
-<p>
-workouts completed
-</p>
-
-</div>
-</div>
 
 
-<div class="col-md-4">
-<div class="card text-center p-4">
 
-<h4>🏅 Personal Bests</h4>
-
-<h1>
-{{ pb_count }}
-</h1>
-
-<p>
-records achieved
-</p>
-
-</div>
-</div>
-
-</div>
-
-
+<!-- Chart -->
 
 <div class="card p-4 mt-5">
 
-<h2>
-📈 Swimming Progress
-</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
 
-<p style="opacity:0.7;">
-Your training distance over time
-</p>
+        <div>
 
-<canvas id="distanceChart" height="300"></canvas>
+            <h3>
+                Swimming Progress
+            </h3>
+
+            <p class="text-muted mb-0">
+                Distance logged from your workouts
+            </p>
+
+        </div>
+
+        <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
+
+    </div>
+
+    <canvas id="distanceChart" height="120"></canvas>
 
 </div>
 
 
+
+
+
+<!-- Quick Actions -->
 
 <div class="card p-4 mt-5">
 
-<h2>
-⚡ Quick Actions
-</h2>
+    <h3 class="mb-4">
+        Quick Actions
+    </h3>
 
-<div class="d-flex flex-wrap gap-3">
+    <div class="row g-3">
 
-<a href="/workouts" class="btn btn-primary">
-🏊 Workouts
-</a>
+        <div class="col-md-4">
 
-<a href="/pbs" class="btn btn-success">
-🏅 Personal Bests
-</a>
+            <a href="/workouts"
+               class="btn btn-primary w-100 py-3">
 
-<a href="/profile" class="btn btn-info">
-👤 Profile
-</a>
+                <i class="bi bi-activity"></i>
+
+                Workouts
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="/pbs"
+               class="btn btn-success w-100 py-3">
+
+                <i class="bi bi-trophy-fill"></i>
+
+                Personal Bests
+
+            </a>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <a href="/profile"
+               class="btn btn-info w-100 py-3 text-white">
+
+                <i class="bi bi-person-circle"></i>
+
+                My Profile
+
+            </a>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
 
+
+
+<!-- Swimmer Profile -->
 
 <div class="card p-4 mt-5">
 
-<h2>
-👤 Swimmer Profile
-</h2>
+    <div class="d-flex align-items-center mb-4">
 
-{% if user.name %}
+        <i class="bi bi-person-circle fs-1 text-primary me-3"></i>
 
-<div class="row">
+        <div>
 
-<div class="col-md-6">
+            <h3 class="mb-0">
+                Swimmer Profile
+            </h3>
 
-<p>
-<b>Name:</b>
-{{ user.name }}
-</p>
+            <small class="text-muted">
+                Your athlete information
+            </small>
 
-<p>
-<b>Age:</b>
-{{ user.age }}
-</p>
+        </div>
 
-<p>
-<b>Club:</b>
-{{ user.team }}
-</p>
+    </div>
+
+    {% if user.name %}
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <p><strong>Name:</strong> {{ user.name }}</p>
+
+            <p><strong>Age:</strong> {{ user.age }}</p>
+
+            <p><strong>Club:</strong> {{ user.team }}</p>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <p><strong>Main Stroke:</strong> {{ user.stroke }}</p>
+
+            <p><strong>Main Event:</strong> {{ user.event }}</p>
+
+        </div>
+
+    </div>
+
+    {% else %}
+
+    <div class="text-center py-4">
+
+        <i class="bi bi-person-plus display-1 text-primary"></i>
+
+        <h4 class="mt-3">
+            Complete your swimmer profile
+        </h4>
+
+        <p class="text-muted">
+            Add your swimming details to personalize Swimora.
+        </p>
+
+        <a href="/profile"
+           class="btn btn-primary mt-2">
+
+            Complete Profile
+
+        </a>
+
+    </div>
+
+    {% endif %}
 
 </div>
 
 
-<div class="col-md-6">
-
-<p>
-<b>Main Stroke:</b>
-{{ user.stroke }}
-</p>
-
-<p>
-<b>Main Event:</b>
-{{ user.event }}
-</p>
-
-</div>
-
-</div>
-
-{% else %}
-
-<p>
-Complete your swimmer profile.
-</p>
-
-<a href="/profile" class="btn btn-primary">
-Create Profile
-</a>
-
-{% endif %}
-
-</div>
 
 
 
@@ -185,7 +311,6 @@ const workoutDates = [
 
 ];
 
-
 const workoutDistances = [
 
 {% for workout in workouts %}
@@ -195,7 +320,6 @@ const workoutDistances = [
 ];
 
 </script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>

@@ -7,7 +7,7 @@ db = SQLAlchemy()
 class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
-
+    weekly_goal = db.Column(db.Integer, default=20000)
     username = db.Column(
         db.String(50),
         unique=True,
