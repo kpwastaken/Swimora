@@ -8,48 +8,116 @@
 <form method="POST">
 
 
-<label>Event</label>
+<label class="form-label">
+📏 Distance
+</label>
 
-<input class="form-control" name="event" value="{{ pb.event }}">
+<select name="distance" class="form-select">
 
+<option value="25m" {% if pb.distance == "25m" %}selected{% endif %}>25m</option>
+<option value="50m" {% if pb.distance == "50m" %}selected{% endif %}>50m</option>
+<option value="100m" {% if pb.distance == "100m" %}selected{% endif %}>100m</option>
+<option value="200m" {% if pb.distance == "200m" %}selected{% endif %}>200m</option>
+<option value="400m" {% if pb.distance == "400m" %}selected{% endif %}>400m</option>
+<option value="800m" {% if pb.distance == "800m" %}selected{% endif %}>800m</option>
+<option value="1500m" {% if pb.distance == "1500m" %}selected{% endif %}>1500m</option>
 
-<br>
-
-
-<label>Time</label>
-
-<input class="form-control" name="time" value="{{ pb.time }}">
-
-
-<br>
-
-
-<label>Date</label>
-
-<input class="form-control" type="date" name="date" value="{{ pb.date }}">
+</select>
 
 
 <br>
 
 
-<label>Meet</label>
+<label class="form-label">
+🏊 Stroke
+</label>
 
-<input class="form-control" name="meet" value="{{ pb.meet }}">
+<select name="stroke" class="form-select">
+
+<option value="Freestyle" {% if pb.stroke == "Freestyle" %}selected{% endif %}>
+Freestyle
+</option>
+
+<option value="Backstroke" {% if pb.stroke == "Backstroke" %}selected{% endif %}>
+Backstroke
+</option>
+
+<option value="Breaststroke" {% if pb.stroke == "Breaststroke" %}selected{% endif %}>
+Breaststroke
+</option>
+
+<option value="Butterfly" {% if pb.stroke == "Butterfly" %}selected{% endif %}>
+Butterfly
+</option>
+
+<option value="IM" {% if pb.stroke == "IM" %}selected{% endif %}>
+IM
+</option>
+
+<option value="Relay" {% if pb.stroke == "Relay" %}selected{% endif %}>
+Relay
+</option>
+
+</select>
 
 
 <br>
 
 
-<label>Notes</label>
+<label class="form-label">
+⏱ Time
+</label>
 
-<textarea class="form-control" name="notes">{{ pb.notes }}</textarea>
+<input
+class="form-control"
+name="time"
+value="{{ pb.time }}">
+
+
+<br>
+
+
+<label class="form-label">
+📅 Date
+</label>
+
+<input
+class="form-control"
+type="date"
+name="date"
+value="{{ pb.date }}">
+
+
+<br>
+
+
+<label class="form-label">
+🏆 Meet
+</label>
+
+<input
+class="form-control"
+name="meet"
+value="{{ pb.meet }}">
+
+
+<br>
+
+
+<label class="form-label">
+📝 Notes
+</label>
+
+<textarea
+class="form-control"
+name="notes">{{ pb.notes }}</textarea>
 
 
 <br>
 
 
 <button class="btn btn-success">
-Save Changes
+💾 Save Changes
 </button>
 
 

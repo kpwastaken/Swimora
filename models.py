@@ -30,10 +30,12 @@ class User(db.Model, UserMixin):
     )
 
     name = db.Column(db.String(100))
+    gender = db.Column(db.String(20))
     age = db.Column(db.String(10))
     team = db.Column(db.String(100))
     stroke = db.Column(db.String(50))
     event = db.Column(db.String(50))
+
 
     avatar_emoji = db.Column(
 
@@ -86,13 +88,13 @@ class Workout(db.Model):
         db.ForeignKey("user.id")
     )
 
-
-
 class PersonalBest(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    event = db.Column(db.String(50))
+    distance = db.Column(db.String(20))
+
+    stroke = db.Column(db.String(50))
 
     time = db.Column(db.String(20))
 
@@ -102,6 +104,46 @@ class PersonalBest(db.Model):
 
     notes = db.Column(db.Text)
 
+
+    user_id = db.Column(
+        db.Integer,
+        db.ForeignKey("user.id")
+    )
+
+class SwimStandard(db.Model):
+
+    id = db.Column(
+        db.Integer,
+        primary_key=True
+    )
+
+    region = db.Column(
+        db.String(50)
+    )
+
+    pool = db.Column(
+        db.String(10)
+    )
+
+    gender = db.Column(
+        db.String(20)
+    )
+
+    age = db.Column(
+        db.Integer
+    )
+
+    event = db.Column(
+        db.String(50)
+    )
+
+    level = db.Column(
+        db.String(20)
+    )
+
+    time = db.Column(
+        db.String(20)
+    )
 
 
     user_id = db.Column(

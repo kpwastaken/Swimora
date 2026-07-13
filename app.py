@@ -10,7 +10,7 @@ from flask_login import (
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import Config
-from models import db, User, Workout, PersonalBest
+from models import db, User, Workout, PersonalBest, SwimStandard
 
 
 app = Flask(__name__)
@@ -24,6 +24,87 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "login"
 
+def time_to_seconds(time):
+    parts = time.split(":")
+
+    if len(parts) == 2:
+        return int(parts[0]) * 60 + float(parts[1])
+
+    return float(parts[0])
+
+
+def calculate_stroke_scores(pbs, comparison="normal"):
+
+    normal_times = {
+        "Freestyle": 60,
+        "Backstroke": 70,
+        "Breaststroke": 80,
+        "Butterfly": 75,
+        "IM": 75
+    }
+
+
+    record_times = {
+        "Freestyle": 46,
+        "Backstroke": 51,
+        "Breaststroke": 56,
+        "Butterfly": 49,
+        "IM": 50
+    }
+
+
+    if comparison == "record":
+        standards = record_times
+    else:
+        standards = normal_times
+
+
+
+    scores = {
+        "Freestyle": [],
+        "Backstroke": [],
+        "Breaststroke": [],
+        "Butterfly": [],
+        "IM": []
+    }
+
+
+
+    for pb in pbs:
+
+        if pb.stroke in scores:
+
+            seconds = time_to_seconds(pb.time)
+
+            standard = standards[pb.stroke]
+
+
+            score = (standard / seconds) * 100
+
+
+            score = min(round(score, 1), 100)
+
+
+            scores[pb.stroke].append(score)
+
+
+
+    final_scores = {}
+
+
+    for stroke, values in scores.items():
+
+        if values:
+            final_scores[stroke] = round(
+                sum(values) / len(values),
+                1
+            )
+
+        else:
+            final_scores[stroke] = 0
+
+
+    return final_scores
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,13 +120,129 @@ with app.app_context():
 def home():
     return redirect("/login")
 
+@app.route("/analysis")
+@login_required
+def analysis():
+    pool = request.args.get(
+        "pool",
+        "LCM"
+    )
+
+
+    pbs = PersonalBest.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+
+    scores = {
+        "Freestyle": [],
+        "Backstroke": [],
+        "Breaststroke": [],
+        "Butterfly": [],
+        "IM": []
+    }
+
+    for pb in pbs:
+
+        distance = str(pb.distance).replace("m", "")
+
+        stroke_codes = {
+            "Freestyle": "FR",
+            "Backstroke": "BK",
+            "Breaststroke": "BR",
+            "Butterfly": "FL",
+            "IM": "IM"
+        }
+
+        event = f"{distance} {stroke_codes[pb.stroke]}"
+
+        print("PB:", pb.distance, pb.stroke)
+        print("Searching:", event)
+        print("USER GENDER:", current_user.gender)
+        print("USER AGE:", current_user.age)
+
+        gender = current_user.gender
+
+        print("Looking for:")
+        print("Gender:", gender)
+        print("Age:", int(current_user.age))
+        print("Pool:", pool)
+        print("Event:", event)
+
+        matches = SwimStandard.query.filter_by(
+            gender=gender,
+            age=int(current_user.age)
+        ).all()
+
+        print("Matches with same gender and age:", len(matches))
+
+        for s in matches[:10]:
+            print(s.pool, s.event)
+
+        standard = SwimStandard.query.filter_by(
+            gender=gender,
+            age=int(current_user.age),
+            event=event,
+            pool=pool
+        ).first()
+
+        print("Found:", standard)
+        print("----------------")
+
+
+        if standard:
+
+            pb_time = time_to_seconds(pb.time)
+
+            standard_time = time_to_seconds(
+                standard.time
+            )
+
+
+            score = (
+                standard_time /
+                pb_time
+            ) * 100
+
+
+            score = min(
+                round(score,1),
+                100
+            )
+
+
+            if pb.stroke in scores:
+                scores[pb.stroke].append(score)
+
+
+
+    final_scores = {}
+
+
+    for stroke, values in scores.items():
+
+        if values:
+            final_scores[stroke] = round(
+                sum(values)/len(values),
+                1
+            )
+
+        else:
+            final_scores[stroke] = 0
+
+    return render_template(
+        "analysis.html",
+        pbs=pbs,
+        scores=final_scores,
+        pool=pool,
+        user=current_user
+    )
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
     if request.method == "POST":
-
         user = User(
             username=request.form["username"],
             email=request.form["email"],
@@ -134,9 +331,9 @@ def profile():
     if request.method == "POST":
         current_user.name = request.form["name"]
         current_user.age = request.form["age"]
+        current_user.gender = request.form["gender"]
         current_user.team = request.form["team"]
         current_user.stroke = request.form["stroke"]
-        current_user.event = request.form["event"]
         current_user.goal_name = request.form["goal_name"]
         current_user.weekly_goal = int(request.form["weekly_goal"])
 
@@ -366,7 +563,8 @@ def pbs():
 def add_pb():
 
     pb = PersonalBest(
-        event=request.form["event"],
+        distance=request.form["distance"],
+        stroke=request.form["stroke"],
         time=request.form["time"],
         date=request.form["date"],
         meet=request.form["meet"],
@@ -395,8 +593,8 @@ def edit_pb(id):
 
 
     if request.method == "POST":
-
-        pb.event = request.form["event"]
+        pb.distance = request.form["distance"]
+        pb.stroke = request.form["stroke"]
         pb.time = request.form["time"]
         pb.date = request.form["date"]
         pb.meet = request.form["meet"]

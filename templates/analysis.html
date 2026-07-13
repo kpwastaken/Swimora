@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>
+📊 Swimming Analysis (BETA 0.1)
+</h1>
+
+<p style="opacity:0.7;">
+See which strokes you are strongest in.
+</p>
+
+
+<div class="card p-4 mt-4">
+
+    <h3>📈 Compare Against</h3>
+
+    <form method="GET" action="/analysis">
+
+        <label class="form-label">Pool</label>
+
+        <select name="pool" class="form-select">
+
+            <option value="SCY" {% if pool=="SCY" %}selected{% endif %}>
+                🇺🇸 USA (Yards)
+            </option>
+
+            <option value="SCM" {% if pool=="SCM" %}selected{% endif %}>
+                🌍 Short Course Meters
+            </option>
+
+            <option value="LCM" {% if pool=="LCM" %}selected{% endif %}>
+                🌍 Long Course Meters
+            </option>
+
+        </select>
+
+        <br>
+
+        <label class="form-label">
+            USA Swimming Standard
+        </label>
+
+        <select name="level" class="form-select">
+
+            <option value="B" {% if level=="B" %}selected{% endif %}>B</option>
+            <option value="BB" {% if level=="BB" %}selected{% endif %}>BB</option>
+            <option value="A" {% if level=="A" %}selected{% endif %}>A</option>
+            <option value="AA" {% if level=="AA" %}selected{% endif %}>AA</option>
+            <option value="AAA" {% if level=="AAA" %}selected{% endif %}>AAA</option>
+            <option value="AAAA" {% if level=="AAAA" %}selected{% endif %}>AAAA</option>
+
+        </select>
+
+        <button class="btn btn-primary mt-3">
+            Compare
+        </button>
+
+    </form>
+
+</div>
+
+<div class="card p-4 mt-4">
+
+    <h2>🏊 Stroke Strength</h2>
+
+    <canvas id="strokeChart"></canvas>
+
+</div>
+
+
+<canvas id="strokeChart"></canvas>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+const ctx = document.getElementById('strokeChart');
+
+
+new Chart(ctx, {
+
+    type: 'radar',
+
+    data: {
+
+        labels: [
+            "Freestyle",
+            "Backstroke",
+            "Breaststroke",
+            "Butterfly",
+            "IM"
+        ],
+
+
+        datasets: [{
+
+            label: "Your Ability",
+
+            data: [
+
+                {{ scores["Freestyle"] }},
+                {{ scores["Backstroke"] }},
+                {{ scores["Breaststroke"] }},
+                {{ scores["Butterfly"] }},
+                {{ scores["IM"] }}
+
+            ]
+
+        }]
+
+    },
+
+
+    options: {
+
+        scales: {
+
+            r: {
+
+                min: 0,
+
+                max: 100
+
+            }
+
+        }
+
+    }
+
+});
+
+</script>
+
+
+{% endblock %}

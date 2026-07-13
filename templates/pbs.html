@@ -31,22 +31,61 @@ Track your fastest swims and watch your progress.
 <div class="row g-3">
 
 
+<div class="col-md-6">
+
+<label class="form-label">
+📏 Distance
+</label>
+
+<select name="distance" class="form-select">
+
+<option value="25m">25m</option>
+<option value="50m">50m</option>
+<option value="100m">100m</option>
+<option value="200m">200m</option>
+<option value="400m">400m</option>
+<option value="800m">800m</option>
+<option value="1500m">1500m</option>
+
+</select>
+
+</div>
+
+
 
 <div class="col-md-6">
 
-
 <label class="form-label">
-🏊 Event
+🏊 Stroke / Event
 </label>
 
+<select name="stroke" class="form-select">
 
-<input
-type="text"
-name="event"
-class="form-control"
-placeholder="100m Freestyle"
-required>
+<option value="Freestyle">
+Freestyle
+</option>
 
+<option value="Backstroke">
+Backstroke
+</option>
+
+<option value="Breaststroke">
+Breaststroke
+</option>
+
+<option value="Butterfly">
+Butterfly
+</option>
+
+<option value="IM">
+IM
+</option>
+
+<option value="Relay">
+Relay
+</option>
+
+</select>
 
 </div>
 
@@ -190,7 +229,7 @@ rows="3"></textarea>
 
 
 <h3>
-🏊 {{ pb.event }}
+🏊 {{ pb.distance }} {{ pb.stroke }}
 </h3>
 
 
